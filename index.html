@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Matemática Maestra - Aprende matemáticas de verdad">
+  <meta name="theme-color" content="#4F46E5">
+  <title>Matemática Maestra</title>
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="window._katexReady=true;(window._katexPending||[]).forEach(function(f){f()});window._katexPending=[]"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     PANTALLA DE CARGA
+═══════════════════════════════════════════ -->
+<div id="loading-screen" class="loading-screen">
+  <div class="loading-content">
+    <div class="loading-logo">
+      <div class="loading-sigma">∑</div>
+      <div class="loading-brand">Matemática<br><strong>Maestra</strong></div>
+    </div>
+    <div class="loading-bar-wrap"><div class="loading-bar-fill" id="loading-bar"></div></div>
+    <div class="loading-label" id="loading-label">Iniciando…</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     APP SHELL
+═══════════════════════════════════════════ -->
+<div id="app" class="app hidden">
+
+  <!-- TOP NAV -->
+  <header class="top-nav" id="top-nav">
+    <div class="nav-left">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="#/" class="nav-logo" aria-label="Inicio">
+        <span class="logo-sigma">∑</span>
+        <span class="logo-name">Matemática<span class="logo-accent">Maestra</span></span>
+      </a>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-wrap">
+        <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="global-search" placeholder="Buscar tema o concepto…" autocomplete="off" aria-label="Buscar">
+        <div class="search-results hidden" id="search-results"></div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-stat" id="xp-badge" title="Experiencia total">
+        <span>⚡</span><span id="nav-xp">0</span>
+      </div>
+      <div class="nav-stat streak-badge" id="streak-badge" title="Racha de días">
+        <span>🔥</span><span id="nav-streak">0</span>
+      </div>
+      <button class="theme-btn" id="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="avatar-btn" id="avatar-btn" aria-label="Perfil" title="Mi perfil">
+        <div class="avatar" id="user-avatar">?</div>
+      </button>
+    </div>
+  </header>
+
+  <!-- LAYOUT -->
+  <div class="layout" id="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegación">
+      <nav class="sidebar-nav">
+
+        <a href="#/" class="sn-item" data-r="/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Inicio</span>
+        </a>
+
+        <a href="#/courses" class="sn-item" data-r="/courses">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Cursos</span>
+        </a>
+
+        <a href="#/practice" class="sn-item" data-r="/practice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Práctica</span>
+        </a>
+
+        <a href="#/grapher" class="sn-item" data-r="/grapher">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Graficador</span>
+        </a>
+
+        <a href="#/progress" class="sn-item" data-r="/progress">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Mi Progreso</span>
+        </a>
+
+        <div class="sn-section">Materias</div>
+
+        <a href="#/materia/aritmetica" class="sn-item sn-subject" data-r="/materia/aritmetica">
+          <span class="dot" style="background:#F59E0B"></span><span>Aritmética</span>
+        </a>
+        <a href="#/materia/algebra" class="sn-item sn-subject" data-r="/materia/algebra">
+          <span class="dot" style="background:#8B5CF6"></span><span>Álgebra</span>
+        </a>
+        <a href="#/materia/geometria" class="sn-item sn-subject" data-r="/materia/geometria">
+          <span class="dot" style="background:#10B981"></span><span>Geometría</span>
+        </a>
+        <a href="#/materia/trigonometria" class="sn-item sn-subject" data-r="/materia/trigonometria">
+          <span class="dot" style="background:#EF4444"></span><span>Trigonometría</span>
+        </a>
+        <a href="#/materia/funciones" class="sn-item sn-subject" data-r="/materia/funciones">
+          <span class="dot" style="background:#06B6D4"></span><span>Funciones</span>
+        </a>
+        <a href="#/materia/calculo" class="sn-item sn-subject" data-r="/materia/calculo">
+          <span class="dot" style="background:#4F46E5"></span><span>Cálculo</span>
+        </a>
+        <a href="#/materia/estadistica" class="sn-item sn-subject" data-r="/materia/estadistica">
+          <span class="dot" style="background:#EC4899"></span><span>Estadística</span>
+        </a>
+        <a href="#/materia/financiera" class="sn-item sn-subject" data-r="/materia/financiera">
+          <span class="dot" style="background:#16A34A"></span><span>Mat. Financiera</span>
+        </a>
+        <a href="#/materia/paes" class="sn-item sn-subject" data-r="/materia/paes">
+          <span class="dot" style="background:#7C3AED"></span><span>PAES</span>
+        </a>
+
+        <div class="sn-spacer"></div>
+
+        <a href="#/settings" class="sn-item" data-r="/settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Configuración</span>
+        </a>
+
+      </nav>
+
+      <!-- Sidebar XP widget -->
+      <div class="sidebar-xp" id="sidebar-xp">
+        <div class="sxp-info">
+          <span id="sxp-level-name">Principiante</span>
+          <span id="sxp-next">0 XP para el siguiente nivel</span>
+        </div>
+        <div class="sxp-bar"><div class="sxp-fill" id="sxp-fill"></div></div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main" id="main-content" aria-live="polite">
+      <!-- Contenido dinámico aquí -->
+    </main>
+
+  </div><!-- /layout -->
+
+  <!-- OVERLAY SIDEBAR MOBILE -->
+  <div class="sidebar-overlay hidden" id="sidebar-overlay"></div>
+
+  <!-- TOAST LOGROS -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive">
+    <span class="toast-ico" id="toast-ico">🏆</span>
+    <div>
+      <div class="toast-title" id="toast-title"></div>
+      <div class="toast-desc" id="toast-desc"></div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-bg hidden" id="modal-bg" role="dialog" aria-modal="true">
+    <div class="modal-box" id="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Cerrar">✕</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/curriculum.js"></script>
+<script src="js/generators.js"></script>
+<script src="js/generators-aritmetica.js"></script>
+<script src="js/generators-algebra.js"></script>
+<script src="js/generators-geometria.js"></script>
+<script src="js/generators-trigonometria.js"></script>
+<script src="js/content.js"></script>
+<script src="js/content-aritmetica.js"></script>
+<script src="js/content-algebra.js"></script>
+<script src="js/content-geometria.js"></script>
+<script src="js/content-trigonometria.js"></script>
+<script src="js/generators-funciones.js"></script>
+<script src="js/generators-calculo.js"></script>
+<script src="js/generators-estadistica.js"></script>
+<script src="js/generators-financiera.js"></script>
+<script src="js/generators-paes-numeros.js"></script>
+<script src="js/generators-paes-algebra.js"></script>
+<script src="js/generators-paes-geometria.js"></script>
+<script src="js/generators-paes-estadistica.js"></script>
+<script src="js/generators-paes-funciones.js"></script>
+<script src="js/content-funciones.js"></script>
+<script src="js/content-calculo.js"></script>
+<script src="js/content-estadistica.js"></script>
+<script src="js/content-financiera.js"></script>
+<script src="js/content-paes-numeros.js"></script>
+<script src="js/content-paes-algebra.js"></script>
+<script src="js/content-paes-geometria.js"></script>
+<script src="js/content-paes-estadistica.js"></script>
+<script src="js/content-paes-funciones.js"></script>
+<script src="js/paes-simulacro.js"></script>
+<script src="js/visual-geo.js"></script>
+<script src="js/visual-trig.js"></script>
+<script src="js/visual-funciones-calculo.js"></script>
+<script src="js/visual-estadistica.js"></script>
+<script src="js/visual-financiera.js"></script>
+<script src="js/student.js"></script>
+<script src="js/gamification.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/assessment.js"></script>
+<script src="js/adaptive.js"></script>
+<script src="js/router.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
